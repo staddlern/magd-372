@@ -7,15 +7,24 @@ using UnityEngine.UI;
 
 public class LevelControl : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int index;
+    public string levelName;
+
+    public Image black;
+    public Animator anim;
+
+    void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Player"))
+        {
+            StartCoroutine(Fading());
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator Fading()
     {
-        
+        anim.SetBool("Fade", true);
+        yield return new WaitUntil(()=>black.color.a==1);
+        SceneManager.LoadScene(index);
     }
 }
